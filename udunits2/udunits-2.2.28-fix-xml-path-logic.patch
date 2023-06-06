@@ -1,0 +1,12 @@
+diff -up udunits-2.2.28/lib/xml.c.bad-logic udunits-2.2.28/lib/xml.c
+--- udunits-2.2.28/lib/xml.c.bad-logic	2021-07-08 10:46:58.419418793 -0400
++++ udunits-2.2.28/lib/xml.c	2021-07-08 10:47:13.421507912 -0400
+@@ -2217,7 +2217,7 @@ ut_get_path_xml(
+         	*status = UT_OPEN_ENV;
+     	}
+     	else {
+-          	path = default_udunits2_xml_path();
++          	path = DEFAULT_UDUNITS2_XML_PATH;
+         	*status = UT_OPEN_DEFAULT;
+     	}
+     }
