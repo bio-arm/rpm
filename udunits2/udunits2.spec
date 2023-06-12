@@ -10,7 +10,7 @@ Patch0: udunits-2.2.28-fix-xml-path-logic.patch
 BuildRequires: make
 BuildRequires: gcc-c++, groff, byacc, expat-devel, CUnit-devel
 BuildRequires: chrpath
-BuildRequires: /usr/bin/makeinfo
+BuildRequires: texinfo
 BuildRequires: texinfo-tex
 # workaround touching configure during build by the %%configure macro on ppc64le RHEL 7
 # can go away when upstream refreshes the autoconf/libtool files
