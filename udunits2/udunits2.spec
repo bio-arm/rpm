@@ -11,7 +11,7 @@ BuildRequires: make
 BuildRequires: gcc-c++, groff, byacc, expat-devel, CUnit-devel
 BuildRequires: chrpath
 BuildRequires: /usr/bin/makeinfo
-BuildRequires: /usr/bin/texi2dvi
+BuildRequires: texinfo-tex
 # workaround touching configure during build by the %%configure macro on ppc64le RHEL 7
 # can go away when upstream refreshes the autoconf/libtool files
 %if 0%{?rhel} == 7
