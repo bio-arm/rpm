@@ -58,7 +58,8 @@ URL:           http://www.gdal.org
 # Source0:   http://download.osgeo.org/gdal/%%{version}/gdal-%%{version}.tar.xz
 # See PROVENANCE.TXT-fedora and the cleaner script for details!
 
-Source0:       https://github.com/OSGeo/gdal/releases/download/v%{version}/gdal-%{version}.tar.gz
+#Source0:       https://github.com/OSGeo/gdal/releases/download/v%{version}/gdal-%{version}.tar.gz
+Source0:       %{name}-%{version}.tar.gz
 Source1:       http://download.osgeo.org/%{name}/%{version}/%{name}autotest-%{version}%{?pre:%pre}.tar.gz
 # Multilib compatible cpl-config.h header
 Source2:       cpl-config.h
