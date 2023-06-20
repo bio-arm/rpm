@@ -226,7 +226,7 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DWITH_MAEPARSER:BOOL=OFF \
  -DWITH_COORDGEN:BOOL=OFF \
  -DOB_PLUGIN_INSTALL_DIR:PATH=%{_lib}/openbabel3 \
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{openEuler}
  -DOPENBABEL_USE_SYSTEM_INCHI=false \
 %else
  -DOPENBABEL_USE_SYSTEM_INCHI=true \
@@ -308,7 +308,7 @@ ctest3 -j1 --force-new-ctest-process
 %{_libdir}/libopenbabel.so.7
 %{_libdir}/pkgconfig/openbabel-3.pc
 %{_libdir}/cmake/openbabel3/
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{openEuler}
 %{_libdir}/libinchi.so
 %{_includedir}/inchi/
 %endif
