@@ -18,7 +18,8 @@ Release: 19%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
-Source0: https://github.com/openbabel/openbabel/archive/openbabel-openbabel-%(echo %{version} | tr '.' '-').tar.gz
+#Source0: https://github.com/openbabel/openbabel/archive/openbabel-openbabel-%(echo %{version} | tr '.' '-').tar.gz
+Source0: openbabel-%{version}-source.tar.bz2
 Source1: obgui.desktop
 Source2: openbabel-inchi-license-lgpl-2.1.txt
 
