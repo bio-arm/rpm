@@ -363,8 +363,8 @@ rm -rf frmts/jpeg/libjpeg
 rm -rf frmts/jpeg/libjpeg12
 rm -rf frmts/gtiff/libgeotiff
 rm -rf frmts/gtiff/libtiff
-rm -rf mrf/LERCV1
-rm -rf third_party/LercLib
+#rm -rf mrf/LERCV1
+#rm -rf third_party/LercLib
 
 # Setup autotest directory
 tar xf %{SOURCE1}
@@ -378,11 +378,13 @@ cp -a %{SOURCE4} .
 
 
 %build
+mkdir build && cd build
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
-  -DENABLE_DEFLATE64=OFF
+  -DENABLE_DEFLATE64=OFF \
+  ..
 %cmake_build
 
 %if %{with mingw}
