@@ -165,7 +165,7 @@ BuildRequires: ruby-devel
 Ruby wrapper for the Open Babel library.
 
 %prep
-%setup -q -n %{name}-%{name}-%(echo %{version} | tr '.' '-')
+%setup -q -n %{name}-%{version}
 %patch0 -p1 -b .perl_path
 %patch1 -p1 -b .plugindir
 %patch2 -p1 -b .noswig_ruby
