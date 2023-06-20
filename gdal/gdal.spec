@@ -378,12 +378,12 @@ cp -a %{SOURCE4} .
 
 
 %build
-%cmake -B "%{_vpath_builddir}" \
+mkdir build
+%cmake -B build \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
-  -DENABLE_DEFLATE64=OFF \
-  ..
+  -DENABLE_DEFLATE64=OFF
 %cmake_build
 
 %if %{with mingw}
