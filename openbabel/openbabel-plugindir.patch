@@ -1,0 +1,30 @@
+diff -up a/CMakeLists.txt.plugindir b/CMakeLists.txt
+--- a/CMakeLists.txt.plugindir	2015-02-07 21:42:44.431479900 +0100
++++ b/CMakeLists.txt	2015-02-07 21:43:29.000429326 +0100
+@@ -24,7 +24,7 @@
+ # had too many 1.100.1 releases. :-)
+ set(BABEL_MAJ_VER   3)
+ set(BABEL_MIN_VER   1)
+-set(BABEL_PATCH_VER 0)
++set(BABEL_PATCH_VER 1)
+ 
+ # This should be phased out in preference for just using the target name
+ set(BABEL_LIBRARY openbabel)
+@@ -750,7 +750,7 @@
+   "${openbabel_BINARY_DIR}/OpenBabel3ConfigVersion.cmake" @ONLY)
+ 
+ # Now to configure the installed config file.
+-set(OB_CONFIG_DIR "${LIB_INSTALL_DIR}/cmake/openbabel3")
++set(OB_CONFIG_DIR "lib${LIB_SUFFIX}/cmake/openbabel3")
+ set(OpenBabel3_INCLUDE_DIRS "\${OpenBabel3_INSTALL_PREFIX}/${OB_INCLUDE_DIRS}")
+ set(OpenBabel3_LIBRARIES "$<TARGET_FILE:openbabel>")
+ 
+--- a/OpenBabel3Config.cmake.orig.in	2020-05-08 17:38:02.000000000 +0200
++++ b/OpenBabel3Config.cmake.in	2022-09-29 21:36:17.995630395 +0200
+@@ -1,5 +1,5 @@
+ # The OpenBabel3 config file. To get the targets include the exports file.
+-get_filename_component(OpenBabel3_INSTALL_PREFIX "${OpenBabel3_DIR}@REL_REF@"
++get_filename_component(OpenBabel3_INSTALL_PREFIX "/usr"
+   ABSOLUTE)
+ 
+ set(OpenBabel3_VERSION_MAJOR   "@BABEL_MAJ_VER@")

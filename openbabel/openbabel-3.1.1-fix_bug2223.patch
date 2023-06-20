@@ -1,0 +1,34 @@
+From b75c392b75b3494d9dae15176f38facf7e61db17 Mon Sep 17 00:00:00 2001
+From: John Bollinger <John.Bollinger@StJude.org>
+Date: Fri, 15 May 2020 11:30:27 -0500
+Subject: [PATCH] Fix UB in UFF parameter parsing
+
+When evaluating atom coordination number, method
+OBForceFieldUFF::ParseParamFile() assumed that it may access a third character
+of the atom type string, but in fact that produces undefined behavior if the
+string is only one character long. A one-character atom type occurs in
+practice with the default parameter file (for deuterium).
+
+This change addresses the issue by verifying that the second character of
+each atom type string is not a C string terminator as a precondition for
+accessing the third. If the second is a string terminator then the same
+default behavior is provided as if the type were two characters long.
+
+Fixes #2223
+---
+ src/forcefields/forcefielduff.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/forcefields/forcefielduff.cpp b/src/forcefields/forcefielduff.cpp
+index 9bff879c9c..2e98e0e804 100644
+--- a/src/forcefields/forcefielduff.cpp
++++ b/src/forcefields/forcefielduff.cpp
+@@ -1647,7 +1647,7 @@ namespace OpenBabel {
+         parameter.b = 0; // used for tracking number of angles in 5-coordinate
+         parameter.c = 0;
+ 
+-        char coord = vs[1][2]; // 3rd character of atom type
++        char coord = vs[1][1] ? vs[1][2] : '\0'; // 3rd character of atom type, if any
+         switch (coord) {
+         case '1': // linear
+           parameter._ipar.push_back(1);

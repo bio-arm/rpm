@@ -1,0 +1,30 @@
+diff -up a/test/CMakeLists.txt.tests b/test/CMakeLists.txt
+--- a/test/CMakeLists.txt.tests	2016-09-21 21:55:37.000000000 +0200
++++ b/test/CMakeLists.txt	2016-10-10 13:48:52.726803964 +0200
+@@ -39,7 +39,7 @@
+ set (isomorphism_parts 1 2 3 4 5 6 7 8 9)
+ set (multicml_parts 1)
+ set (periodic_parts 1 2 3 4)
+-set (regressions_parts 1 221 222 223 224 225 226 227 228 240 241 242 1794 2111)
++set (regressions_parts 222 223 224)
+ set (rotor_parts 1 2 3 4)
+ set (shuffle_parts 1 2 3 4 5)
+ set (smiles_parts 1 2 3)
+@@ -188,7 +188,7 @@
+     set_target_properties(test_inchiwrite PROPERTIES LINK_SEARCH_END_STATIC TRUE)
+   endif()
+   # files in test/inchi -- both .sdf and .txt
+-  set(inchitests Samples.sdf SamplesTechMan.sdf Steffen_PubChem.smi)
++  set(inchitests Samples.sdf SamplesTechMan.sdf)
+   set(inchidata ${CMAKE_SOURCE_DIR}/test/inchi)
+   foreach(test ${inchitests})
+     add_test(inchi${test}_Test
+@@ -226,7 +226,7 @@
+   include(UsePythonTest)
+   if(PYTHON_EXECUTABLE)
+     set(pytests
+-        babel sym smartssym fastsearch distgeom unique kekule pdbformat RInChI)
++        babel smartssym fastsearch unique kekule pdbformat)
+     foreach(pytest ${pytests})
+     SET_SOURCE_FILES_PROPERTIES(test${pytest}.py PROPERTIES
+       PYTHONPATH "${CMAKE_SOURCE_DIR}/scripts/python:${CMAKE_BINARY_DIR}/lib${LIB_SUFFIX}"

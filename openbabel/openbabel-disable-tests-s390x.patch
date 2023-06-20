@@ -1,0 +1,21 @@
+diff -up a/test/CMakeLists.txt.s390x b/test/CMakeLists.txt
+--- a/test/CMakeLists.txt.s390x	2016-10-10 17:56:17.000000000 +0200
++++ b/test/CMakeLists.txt	2019-01-27 19:32:21.568052461 +0100
+@@ -74,7 +74,7 @@
+     )
+ set (atom_parts 1 2 3 4)
+ set (ffmmff94_parts 1 2 3 4 5 6)
+-set (math_parts 1 2 3 4)
++set (math_parts 1 2 3)
+ set (pdbreadfile_parts 1 2 3 4)
+ 
+ if(BUILD_SHARED)
+@@ -250,8 +250,6 @@
+   include(UsePythonTest)
+   set(pybindtests
+       bindings
+-      _pybel
+-      example 
+       obconv_writers
+       cdjsonformat
+       pcjsonformat
