@@ -368,10 +368,10 @@ rm -rf frmts/gtiff/libtiff
 
 # Setup autotest directory
 tar xf %{SOURCE1}
-mv %{name}autotest-%{version} autotest
+#mv %{name}autotest-%{version} autotest
 
 # Need to patch autotest
-%autopatch -p1
+#%autopatch -p1
 
 # Copy in PROVENANCE.TXT-fedora
 cp -a %{SOURCE4} .
