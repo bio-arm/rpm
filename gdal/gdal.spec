@@ -78,7 +78,7 @@ BuildRequires: gcc-c++
 BuildRequires: armadillo-devel
 BuildRequires: bison
 BuildRequires: cfitsio-devel
-BuildRequires: CharLS-devel
+#BuildRequires: CharLS-devel
 BuildRequires: curl-devel
 BuildRequires: expat-devel
 BuildRequires: freexl-devel
@@ -88,12 +88,12 @@ BuildRequires: gtest-devel
 BuildRequires: hdf-devel
 BuildRequires: hdf5-devel
 BuildRequires: json-c-devel
-BuildRequires: libdap-devel
+#BuildRequires: libdap-devel
 BuildRequires: libgeotiff-devel
 BuildRequires: libgta-devel
 BuildRequires: libjpeg-devel
-BuildRequires: libkml-devel
-BuildRequires: liblerc-devel
+#BuildRequires: libkml-devel
+#BuildRequires: liblerc-devel
 BuildRequires: libpng-devel
 BuildRequires: libpq-devel
 %if %{with_spatialite}
