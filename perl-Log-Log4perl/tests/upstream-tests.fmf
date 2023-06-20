@@ -1,0 +1,4 @@
+summary: Upstream tests
+component: perl-Log-Log4perl
+require: perl-Log-Log4perl-tests
+test: /usr/libexec/perl-Log-Log4perl/test
