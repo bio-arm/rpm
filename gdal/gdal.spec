@@ -353,7 +353,7 @@ MinGW Windows Python3 GDAL bindings.
 %endif
 
 %prep
-%autosetup -N -p1 -n %{name}-%{version}-fedora
+%autosetup -N -p1 -n %{name}-%{version}
 
 # Delete bundled libraries
 rm -rf frmts/zlib
