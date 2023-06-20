@@ -384,7 +384,9 @@ mkdir build
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
   -DENABLE_DEFLATE64=OFF
-%cmake_build
+#%cmake_build
+#make %{?_smp_mflags}
+%__cmake --build build %{?_smp_mflags} --verbose
 
 %if %{with mingw}
 %mingw_cmake \
@@ -397,7 +399,9 @@ mkdir build
 
 
 %install
-%cmake_install
+#%cmake_install
+#make install
+DESTDIR="%{buildroot}" %__cmake --install build
 
 %if %{with mingw}
 %mingw_make_install
