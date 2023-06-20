@@ -378,8 +378,7 @@ cp -a %{SOURCE4} .
 
 
 %build
-mkdir build && cd build
-%cmake \
+%cmake -B "%{_vpath_builddir}" \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_USE_JPEG12_INTERNAL=OFF \
