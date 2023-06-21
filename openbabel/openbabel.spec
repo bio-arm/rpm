@@ -119,7 +119,7 @@ This package contains the graphical interface.
 
 %package libs
 Summary: Chemistry software file format converter - libraries
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{openEuler}
 License: GPL-2.0-only AND LGPL-2.1-or-later
 Provides: bundled(libinchi) = 1.0.4
 %endif
@@ -327,7 +327,7 @@ ctest3 -j1 --force-new-ctest-process
 %{_datadir}/%{name}/
 %{_libdir}/%{name}3/
 %{_libdir}/libopenbabel.so.7.0.0
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{openEuler}
 %license inchi-license-lgpl-2.1.txt
 %{_libdir}/libinchi.so.0.4.1
 %{_libdir}/libinchi.so.0
