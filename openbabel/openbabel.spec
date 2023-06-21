@@ -154,14 +154,14 @@ Obsoletes: python2-%{name} < 0:%{version}-%{release}
 %description -n python3-%{name}
 Python3 wrapper for the Open Babel library.
 
-%package -n ruby-%{name}
-Summary: Ruby wrapper for the Open Babel library
-Requires: ruby(release)
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-BuildRequires: ruby-devel
+#%package -n ruby-%{name}
+#Summary: Ruby wrapper for the Open Babel library
+#Requires: ruby(release)
+#Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+#BuildRequires: ruby-devel
 
-%description -n ruby-%{name}
-Ruby wrapper for the Open Babel library.
+#%description -n ruby-%{name}
+#Ruby wrapper for the Open Babel library.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -341,8 +341,8 @@ ctest3 -j1 --force-new-ctest-process
 %files -n python3-%{name}
 %{python3_sitearch}/openbabel/
 
-%files -n ruby-%{name}
-%{ruby_vendorarchdir}/openbabel.so
+#%files -n ruby-%{name}
+#%{ruby_vendorarchdir}/openbabel.so
 
 %changelog
 * Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.1.1-19
