@@ -1,0 +1,12 @@
+diff -up a/openbabel-3.pc.cmake.p b/openbabel-3.pc.cmake
+--- a/openbabel-3.pc.cmake.p
++++ b/openbabel-3.pc.cmake
+@@ -1,6 +1,6 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+ exec_prefix=${prefix}
+-libdir=${exec_prefix}/@LIB_INSTALL_DIR@
++libdir=${exec_prefix}/lib@LIB_SUFFIX@
+ includedir=${prefix}/include
+ pkgincludedir=${includedir}/openbabel@BABEL_MAJ_VER@
+ 
+ 
