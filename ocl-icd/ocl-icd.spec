@@ -1,13 +1,12 @@
 Name:                ocl-icd
-Version:             2.2.12
+Version:             2.2.14
 Release:             2
 Summary:             OpenCL ICD Bindings
 License:             BSD
-URL:                 https://github.com/OCL-dev/ocl-icd
-Source0:             https://github.com/OCL-dev/ocl-icd/archive/v%{version}.tar.gz
+URL:                 https://github.com/OCL-dev/ocl-icd/tree/v%{version}
+Source0:             https://github.com/OCL-dev/ocl-icd/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:       gcc automake autoconf make libtool opencl-headers ruby rubygems
-Patch0001:           ocl-icd-fix-build-error-with-gcc-10.patch
 
 %description
 %{summary}.
@@ -48,6 +47,9 @@ make check
 %{_libdir}/pkgconfig/OpenCL.pc
 
 %changelog
+* Sun Jun 25 2023 yangxingyu <yangxingyu13@huawei.com> - 2.2.14
+- update to 2.2.14
+
 * Fri Jul 30 2021 sunguoshuai <sunguoshuai@huawei.com> - 2.2.12-2
 - ocl-icd fix build error with gcc 10
 
