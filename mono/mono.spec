@@ -1,4 +1,4 @@
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 %ifarch s390x
 # workaround https://github.com/mono/mono/issues/9009#issuecomment-477073609
