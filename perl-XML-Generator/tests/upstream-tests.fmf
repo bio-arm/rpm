@@ -1,0 +1,4 @@
+summary: Upstream tests
+component: perl-XML-Generator
+require: perl-XML-Generator-tests
+test: /usr/libexec/perl-XML-Generator/test
