@@ -97,7 +97,7 @@ ClusterShell Python 3 module and related command line tools.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 %{__python3} setup.py build
