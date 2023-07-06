@@ -1,0 +1,28 @@
+--- libSBML-5.19.0-Source/docs/src/Makefile.in~	2020-11-25 12:03:49.000000000 +0100
++++ libSBML-5.19.0-Source/docs/src/Makefile.in	2021-01-10 11:29:04.899494112 +0100
+@@ -589,9 +589,7 @@
+   else \
+     $(DOXYGEN) doxygen-config.txt; \
+   fi
+-  cp -f $(2)/navtreeindex*.js .
+   cp -f $(2)/navtree*.js .
+-  cp -f $(2)/files.js .
+ endef
+ 
+ define doxygen_final_pass
+@@ -606,14 +604,8 @@
+   else \
+     $(DOXYGEN) doxygen-config.txt; \
+   fi
+-  cp -f navtreeindex*.js $(2)
+-  cp -f navtree.js $(2)
+   cp -f navtree*.js $(2)
+-  cp -f files.js $(2)
+-  rm navtreeindex*.js
+-  rm navtree.js
+-  rm navtreedata.js
+-  rm files.js
++  rm navtree*.js
+ endef
+ 
+ define preprocess_doxygen
