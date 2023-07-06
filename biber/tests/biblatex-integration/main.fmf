@@ -1,0 +1,23 @@
+summary: Integration with BibLaTex
+description: |
+    This test verifies that a texlive and biber work together. It checks that
+    a LaTeX source with BibLaTeX package with a biber backend compiles and the
+    a bibliography a reference to the bibilography appears in the resulting PDF
+    document.
+
+    <https://bugzilla.redhat.com/show_bug.cgi?id=2048536>
+component:
+    - biber
+    - texlive
+require:
+    - biber
+    - perl-interpreter
+    - perl(Cwd)
+    - perl(File::Temp)
+    - perl(strict)
+    - perl(Test::More)
+    - perl(utf8)
+    - perl(warnings)
+    - poppler-utils
+    - texlive-latex
+test: ./test.pl

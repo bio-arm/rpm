@@ -1,0 +1,3 @@
+addFilter('spelling-error .* (bibtex|biblatex|superset|texlive)')
+addFilter('-tests\.noarch: W: no-documentation')
+addFilter('-tests\.noarch: W: dangling-symlink /usr/libexec/biber/')

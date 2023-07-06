@@ -1,0 +1,4 @@
+summary: Upstream tests
+component: biber
+require: biber-tests
+test: /usr/libexec/biber/test
