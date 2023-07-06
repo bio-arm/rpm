@@ -164,31 +164,6 @@ Summary:        Octave bindings for libSBML
 This package contains %{summary}.
 %endif
 
-%if %{with r}
-%package -n R-%{rpkg}
-BuildRequires:  R-devel
-BuildRequires:  R-core-devel
-BuildRequires:  tex(latex)
-Requires:       R-core
-Summary:        R bindings for libSBML
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description -n R-%{rpkg}
-This package contains %{summary}.
-%endif
-
-%if %{with mono}
-%package sharp
-BuildRequires:  mono-core
-BuildRequires:  xerces-c-devel, libxml2-devel, expat-devel
-Summary:        C# bindings for libSBML
-Requires:       mono-core
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description sharp
-This package contains %{summary}.
-%endif
-
 %if %{with doc}
 %package        doc
 BuildRequires:  doxygen
@@ -261,17 +236,6 @@ mkdir -p build
 %if %{with octave}
        -DWITH_OCTAVE:BOOL=ON \
 %endif
-%if %{with r}
-       -DWITH_R:BOOL=ON \
-       -DR_INCLUDE_DIRS:PATH=%{_includedir}/R \
-%endif
-%if %{with mono}
-       -DWITH_CSHARP:BOOL=ON \
-       -DWITH_XERCES:BOOL=OFF \
-       -DWITH_LIBXML:BOOL=ON \
-       -DWITH_EXPAT:BOOL=OFF \
-       -DWITH_SWIG:BOOL=ON \
-%endif
 %if %{with check}
        -DWITH_CHECK=ON \
 %endif
@@ -319,12 +283,6 @@ install -pm 644 COPYING.txt README* %{buildroot}%{octpkgdir}/packinfo
 mkdir -p %{buildroot}%{_libdir}/%{name} %{buildroot}%{_jnidir}
 mv %{buildroot}%{_javadir}/libsbmlj.jar %{buildroot}%{_jnidir}/
 mv %{buildroot}%{_libdir}/libsbmlj.so %{buildroot}%{_libdir}/%{name}/
-%endif
-
-%if %{with r}
-mkdir -p %{buildroot}%{_libdir}/R/library
-R CMD INSTALL -l %{buildroot}%{_libdir}/R/library build/src/bindings/r/%{rpkg}_%{version}_R_*.tar.gz
-rm -rf %{buildroot}%{_libdir}/R/library/%{rpkg}/R.css
 %endif
 
 %if %{with doc}
@@ -395,18 +353,6 @@ popd
 %{octpkgdir}/packinfo/COPYING.txt
 %{octpkgdir}/packinfo/README*
 %{octpkglibdir}/
-%endif
-
-%if %{with r}
-%files -n R-%{rpkg}
-%license COPYING.txt LICENSE.txt
-%{_libdir}/R/library/%{rpkg}/
-%endif
-
-%if %{with mono}
-%files sharp
-%license COPYING.txt LICENSE.txt
-%{_monodir}/libsbmlcsP/
 %endif
 
 %if %{with doc}
