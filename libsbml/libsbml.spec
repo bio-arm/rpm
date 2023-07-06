@@ -67,7 +67,11 @@ BuildRequires:  bzip2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  expat-devel
 BuildRequires:  check-devel
+%if 0%{openEuler}
+BuildRequires:  minizip-devel
+%else
 BuildRequires:  minizip-ng-devel
+%endif
 BuildRequires:  swig
 BuildRequires:  hostname
 
