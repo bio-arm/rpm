@@ -195,7 +195,9 @@ unzip -n %{SOURCE1}
 sed -r -i s/DOXYGEN_MAX_VERSION=1.8.11/DOXYGEN_MAX_VERSION=2.0.0/ configure
 
 %if %{with python}
+%if 0%{?rhel}
 find . -type f -name '*.py' -exec %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"  {} \;
+%endif
 python3 -m lib2to3 -f print -w docs/src/filters/
 python3 -m lib2to3 -f next -w docs
 %endif
