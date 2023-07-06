@@ -59,7 +59,7 @@ Patch4:         %{name}-drop-formatter-import.diff
 # affect files in dev/ that are not present in the PyPI source distribution.
 Patch5:         https://github.com/sbmlteam/%{name}/pull/178/commits/b12b7f9372424f5271a838c95605d9946c7ea1fb.patch
 
-Patch6:         %{name}-rhbz_2128592.patch
+#Patch6:         %{name}-rhbz_2128592.patch
 
 BuildRequires:  cmake
 BuildRequires:  zlib-devel
@@ -187,15 +187,9 @@ This package contains %{summary}.
 %endif
 
 %prep
-%setup -n libSBML-%{version}-Source
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-# use --binary to deal with different file endings (CRLF vs LF)
-%patch6 -p1 --binary
+%autosetup -n libSBML-%{version}-Source -p1
+# delete a file that is hard to be patched due to Windows file endings
+rm -rf examples/python/append_to_note.py
 unzip -n %{SOURCE1}
 
 sed -r -i s/DOXYGEN_MAX_VERSION=1.8.11/DOXYGEN_MAX_VERSION=2.0.0/ configure
