@@ -5,7 +5,7 @@ Summary:        Library providing BSD-compatible functions for portability
 URL:            http://libbsd.freedesktop.org/
 License:        BSD and ISC and Copyright only and Public Domain
 
-Source0:        http://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
+Source0:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
 Patch1:         %{name}-0.8.3-deprecated.patch
 Patch2:         %{name}-0.8.6-compat.patch
 
