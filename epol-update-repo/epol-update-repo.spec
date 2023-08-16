@@ -5,21 +5,17 @@ Summary:        A package that adds some additional repositories to /etc/yum.rep
 
 License:        ASL 2.0
 URL:            https://github.com/bio-arm/rpms/
+BuildArch:      noarch
+
+Source1:        oe-extra-repos.repo
 
 %description
 A package that adds EPOL/update to /etc/yum.repos.d/openEuler.repo
 
+%install
+install -dm 755 %{buildroot}%{_sysconfdir}/yum.repos.d
+install -pm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/yum.repos.d
 
-%post
-if ! grep -q EPOL/update /etc/yum.repos.d/openEuler.repo; then
-    cat << EOF >> /etc/yum.repos.d/openEuler.repo
+%files
+%config(noreplace) %{_sysconfdir}/yum.repos.d/oe-extra-repos.repo
 
-[EPOL_update]
-name=EPOL_update
-baseurl=http://repo.openeuler.org/openEuler-22.03-LTS/EPOL/update/main/$basearch/
-enabled=1
-gpgcheck=1
-gpgkey=http://repo.openeuler.org/openEuler-22.03-LTS/OS/$basearch/RPM-GPG-KEY-openEuler
-
-EOF
-fi
