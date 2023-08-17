@@ -1,0 +1,156 @@
+--- a/CMakeLists.orig.txt	2017-03-15 13:01:27.623725000 +0100
++++ b/CMakeLists.txt	2017-03-15 14:12:22.247705049 +0100
+@@ -764,6 +764,8 @@
+ valid. It should contain the file zlib.h, but it does not.")
+     endif()
+ 
++    find_package(PkgConfig)
++    pkg_check_modules(MINIZIP REQUIRED minizip)
+ endif(WITH_ZLIB)
+ 
+ 
+--- a/src/CMakeLists.orig.txt	2017-03-15 13:01:26.507732000 +0100
++++ b/src/CMakeLists.txt	2017-03-15 14:15:49.173159496 +0100
+@@ -353,14 +353,6 @@
+ if(WITH_ZLIB)
+ 
+ set(COMPRESS_SOURCES ${COMPRESS_SOURCES}
+-        sbml/compress/zip.c
+-        sbml/compress/zip.h
+-        sbml/compress/unzip.h
+-        sbml/compress/unzip.c
+-        sbml/compress/ioapi.h
+-        sbml/compress/ioapi.c
+-        sbml/compress/ioapi_mem.h
+-        sbml/compress/ioapi_mem.c
+         sbml/compress/zfstream.h
+         sbml/compress/zfstream.cpp
+         sbml/compress/zipfstream.cpp
+@@ -380,7 +372,7 @@
+     endif()
+ 
+     include_directories(${LIBZ_INCLUDE_DIR})
+-    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBZ_LIBRARY})
++    set(LIBSBML_LIBS ${LIBSBML_LIBS} ${LIBZ_LIBRARY} ${MINIZIP_LIBRARIES})
+ 
+ endif()
+ 
+--- a/src/sbml/compress/zipfstream.orig.h	2017-03-15 13:01:25.633738000 +0100
++++ b/src/sbml/compress/zipfstream.h	2017-03-15 14:18:08.254792811 +0100
+@@ -66,8 +66,8 @@
+ 
+ #include <istream>  // not iostream, since we don't need cin/cout
+ #include <ostream>
+-#include "zip.h"
+-#include "unzip.h"
++#include "minizip/zip.h"
++#include "minizip/unzip.h"
+ 
+ /*****************************************************************************/
+ 
+--- a/src/sbml/compress/zipfstream.h.orig	2021-01-07 14:08:02.122268503 +0100
++++ b/src/sbml/compress/zipfstream.h	2021-01-07 14:08:02.142268743 +0100
+@@ -44,10 +44,10 @@
+  *
+  *  zipFile  zipopen (const char* path, const char* filenameinzip, int append);
+  *  int      zipclose(zipFile file);
+- *  int      zipwrite(zipFile file, voidp buf, unsigned len);
++ *  int      zipwrite(zipFile file, void* buf, unsigned len);
+  *  unzFile  unzipopen (const char* path);
+  *  int      unzipclose(unzFile file);
+- *  int      unzipread (unzFile file, voidp buf, unsigned len);
++ *  int      unzipread (unzFile file, void* buf, unsigned len);
+  *
+  * Minizip is distributed under the following terms:
+  * ---------------------------------------------------------------------------
+@@ -504,11 +504,11 @@
+ 
+ zipFile  zipopen (const char* path, const char* filenameinzip, int append);
+ int      zipclose(zipFile file);
+-int      zipwrite(zipFile file, voidp buf, unsigned len);
++int      zipwrite(zipFile file, void* buf, unsigned len);
+ 
+ unzFile  unzipopen (const char* path);
+ int      unzipclose(unzFile file);
+-int      unzipread (unzFile file, voidp buf, unsigned len);
++int      unzipread (unzFile file, void* buf, unsigned len);
+ 
+ 
+ 
+--- a/src/sbml/compress/zipfstream.cpp.orig	2020-11-25 11:58:43.000000000 +0100
++++ b/src/sbml/compress/zipfstream.cpp	2021-01-07 14:08:02.143268755 +0100
+@@ -44,10 +44,10 @@
+  *
+  *  zipFile  zipopen (const char* path, const char* filenameinzip, int append);
+  *  int      zipclose(zipFile file);
+- *  int      zipwrite(zipFile file, voidp buf, unsigned len);
++ *  int      zipwrite(zipFile file, void* buf, unsigned len);
+  *  unzFile  unzipopen (const char* path);
+  *  int      unzipclose(unzFile file);
+- *  int      unzipread (unzFile file, voidp buf, unsigned len);
++ *  int      unzipread (unzFile file, void* buf, unsigned len);
+  *
+  * Minizip is distributed under the following terms:
+  * ---------------------------------------------------------------------------
+@@ -94,7 +94,7 @@
+ #define BIGBUFSIZE BUFSIZ
+ #define SMALLBUFSIZE 1
+ 
+-uLong filetime(const char* f, tm_zip* tmzip, uLong* dt);
++unsigned long filetime(const char* f, tm_zip* tmzip, uint32_t* dt);
+ 
+ /*****************************************************************************/
+ 
+@@ -547,7 +547,7 @@
+     err = zipOpenNewFileInZip(zf,filenameinzip,&zi,
+                      NULL,0,NULL,0,NULL,
+                      Z_DEFLATED,
+-                     Z_DEFAULT_COMPRESSION);
++                     Z_DEFLATED);
+   
+     if (err != ZIP_OK)
+     {
+@@ -563,7 +563,7 @@
+   return zipClose(file,NULL);
+ }
+ 
+-int zipwrite(zipFile file, voidp buf, unsigned len)
++int zipwrite(zipFile file, void* buf, unsigned len)
+ {
+   return zipWriteInFileInZip (file,buf,len);
+ }
+@@ -615,14 +615,14 @@
+   return unzClose(file);
+ }
+ 
+-int  unzipread (unzFile file, voidp buf, unsigned len)
++int  unzipread (unzFile file, void* buf, unsigned len)
+ {
+   return unzReadCurrentFile(file,buf,len);
+ }
+ 
+ 
+ #if defined(WIN32) && !defined(CYGWIN)
+-uLong filetime(const char* f, tm_zip* tmzip, uLong *dt)
++unsigned long filetime(const char* f, tm_zip* tmzip, uint32_t* dt)
+ {
+   int ret = 0;
+   {
+@@ -643,7 +643,7 @@
+ }
+ #else
+ #if defined(unix) || defined(MACOSX)
+-uLong filetime(const char* f, tm_zip* tmzip, uLong *dt)
++unsigned long filetime(const char* f, tm_zip* tmzip, uint32_t* dt)
+ {
+   int ret=0;
+   struct stat s;        /* results of stat() */
+@@ -682,7 +682,7 @@
+   return ret;
+ }
+ #else
+-uLong filetime(const char* f, tm_zip* tmzip, uLong *dt)
++unsigned long filetime(const char* f, tm_zip* tmzip, uint32_t* dt)
+ {
+     return 0;
+ }

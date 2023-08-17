@@ -1,0 +1,12 @@
+diff -up libSBML-5.19.0-Source/examples/python/append_to_note.py.swig libSBML-5.19.0-Source/examples/python/append_to_note.py
+--- libSBML-5.19.0-Source/examples/python/append_to_note.py.swig	2022-09-20 11:29:15.703578074 +0200
++++ libSBML-5.19.0-Source/examples/python/append_to_note.py	2022-09-20 11:29:51.020806478 +0200
+@@ -75,7 +75,7 @@
+         exit(4)
+     print ("Body before change: ")
+     print (body.toXMLString())
+-    body.addChild(libsbml.XMLNode_convertStringToXMLNode(stringToAdd))
++    body.addChild(libsbml.XMLNode.convertStringToXMLNode(stringToAdd))
+     print ("\nBody after change: ")
+     print (body.toXMLString())
+ 
